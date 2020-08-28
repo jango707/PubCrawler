@@ -64,7 +64,7 @@ flutter:
     - assets/images/bluedot.png
     - assets/images/finish.png
     - assets/images/start.png
-
+    - assets/key.json
 
 
 

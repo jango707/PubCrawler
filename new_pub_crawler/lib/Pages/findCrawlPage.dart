@@ -13,6 +13,7 @@ import 'package:newpubcrawler/StateManager.dart';
 import 'package:get_it/get_it.dart';
 import 'package:newpubcrawler/Bar.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter/services.dart';
 
 var uuid = Uuid();
 
@@ -24,8 +25,19 @@ class FindCrawlPage extends StatefulWidget {
 }
 
 class _FindCrawlPageState extends State<FindCrawlPage> {
-  String _APIkey = 'AIzaSyA_BuKYcyde_OzgWfBtxwXLnx7dokqEHB8';
-  GoogleMapPolyline _googleMapPolyline = new GoogleMapPolyline(apiKey: 'AIzaSyA_BuKYcyde_OzgWfBtxwXLnx7dokqEHB8');
+
+  Future<String>_loadFromAsset() async {
+    return await rootBundle.loadString("assets/key.json");
+  }
+  Future parseJson() async {
+    String jsonString = await _loadFromAsset();
+    final jsonResponse = jsonDecode(jsonString);
+    _APIkey = jsonResponse['google_API_key'].toString();
+    _googleMapPolyline = new GoogleMapPolyline(apiKey: _APIkey);
+    print(jsonResponse['google_API_key'].toString());
+  }
+  String _APIkey;
+  GoogleMapPolyline _googleMapPolyline;
   var stateManager;
   Completer<GoogleMapController> _controller = Completer();
   Set<Polyline> _polyline = {};
@@ -41,6 +53,7 @@ class _FindCrawlPageState extends State<FindCrawlPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    parseJson();
     stateManager = getIt.get<StateManager>();
   }
   void _getCurrentLocation() async{

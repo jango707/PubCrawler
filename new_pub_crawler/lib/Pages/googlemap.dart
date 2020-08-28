@@ -8,6 +8,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import '../StateManager.dart';
 import 'package:get_it/get_it.dart';
+import 'package:flutter/services.dart';
 
 final getIt = GetIt.instance;
 
@@ -21,8 +22,8 @@ class _MapsState extends State<Maps> {
   Set<Polyline> _polyline = {};
   List<LatLng> _routeCoords;
   List<LatLng> _routeCoordsForCrawl;
-  GoogleMapPolyline _googleMapPolyline = new GoogleMapPolyline(apiKey: 'AIzaSyA_BuKYcyde_OzgWfBtxwXLnx7dokqEHB8');
-  String _APIkey = 'AIzaSyA_BuKYcyde_OzgWfBtxwXLnx7dokqEHB8';
+  GoogleMapPolyline _googleMapPolyline;
+  String _APIkey;
   Completer<GoogleMapController> _controller = Completer();
   List<Bar> _bars = [];
   double _currentLat;
@@ -30,9 +31,21 @@ class _MapsState extends State<Maps> {
   List<Marker> positionMarker= [];
   var stateManager;
 
+  Future<String>_loadFromAsset() async {
+    return await rootBundle.loadString("assets/key.json");
+  }
+  Future parseJson() async {
+    String jsonString = await _loadFromAsset();
+    final jsonResponse = jsonDecode(jsonString);
+    _APIkey = jsonResponse['google_API_key'].toString();
+    _googleMapPolyline = new GoogleMapPolyline(apiKey: _APIkey);
+    print(jsonResponse['google_API_key'].toString());
+  }
+
   @override
   void initState() {
     super.initState();
+    parseJson();
     stateManager = getIt.get<StateManager>();
     _getCurrentLocation();
     if(stateManager.getCrawlStarted() == true){
@@ -135,7 +148,10 @@ class _MapsState extends State<Maps> {
         endCap: Cap.roundCap,
       ));
     });
-    stateManager.getCurrentPubCrawl().setPolylines(_polyline);
+    if(stateManager.getCurrentPubCrawl() != null){
+      stateManager.getCurrentPubCrawl().setPolylines(_polyline);
+    }
+
   }
   createRouteForCrawl(Bar bar1, Bar bar2) async{
     print(bar1.getCoord().toString() +  bar2.getCoord().toString());
