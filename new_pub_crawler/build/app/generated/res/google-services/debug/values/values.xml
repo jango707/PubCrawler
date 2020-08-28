@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">588542094-98p1qup0jjc3cdbs5g3b2v476mb718vm.apps.googleusercontent.com</string>
+    <string name="firebase_database_url" translatable="false">https://pubcrawler-283119.firebaseio.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">588542094</string>
+    <string name="google_api_key" translatable="false">AIzaSyC1dBDLAsDAXQiEEwKLtN5Q_U4BHCSVoXo</string>
+    <string name="google_app_id" translatable="false">1:588542094:android:87cabfb314caf1e43fd9df</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyC1dBDLAsDAXQiEEwKLtN5Q_U4BHCSVoXo</string>
+    <string name="google_storage_bucket" translatable="false">pubcrawler-283119.appspot.com</string>
+    <string name="project_id" translatable="false">pubcrawler-283119</string>
+</resources>
