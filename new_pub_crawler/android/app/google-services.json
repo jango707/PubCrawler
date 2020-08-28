@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "588542094",
+    "firebase_url": "https://pubcrawler-283119.firebaseio.com",
+    "project_id": "pubcrawler-283119",
+    "storage_bucket": "pubcrawler-283119.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:588542094:android:87cabfb314caf1e43fd9df",
+        "android_client_info": {
+          "package_name": "jango.co.PubCrawler"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "588542094-98p1qup0jjc3cdbs5g3b2v476mb718vm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1dBDLAsDAXQiEEwKLtN5Q_U4BHCSVoXo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "588542094-98p1qup0jjc3cdbs5g3b2v476mb718vm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
