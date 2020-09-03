@@ -15,6 +15,7 @@ class PubCrawl {
   String author;
   int numberParticipants;
   Set<Polyline> polylines = {};
+  double rating;
 
 
 
@@ -64,5 +65,17 @@ class PubCrawl {
   }
   getNumberOfParticipants(){
     return numberParticipants;
+  }
+  getDesc(){
+    return description;
+  }
+  setDesc(String _desc){
+    description = _desc;
+  }
+  getRating(){
+    return rating;
+  }
+  setRating(double _rating){
+    rating = _rating;
   }
 }

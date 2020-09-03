@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -25,7 +26,7 @@ class StateManager{
   startCrawl(Bar bar){
     print("crawl started");
     _stateManager.add(true);
-    currentCrawl = new PubCrawl(uuid.v1(), DateTime.now(), "jango", 5, bar);
+    currentCrawl = new PubCrawl(uuid.v1(), DateTime.now(), loggedInUser.getUsername(), 5, bar);
   }
 
   endCrawl(){
@@ -78,8 +79,13 @@ class StateManager{
     print("done");
   }
 
+
   Future<PubCrawl> getPubCrawlFromId(String _id) async{
     PubCrawl crawl;
+    var _rating;
+    var total = 0;
+    int count;
+
     List<dynamic> barsAtCrawl= [];
     await _database
         .reference()
@@ -93,6 +99,19 @@ class StateManager{
                 snapshot.value["pubcrawl_author"],
                 snapshot.value["pubcrawl_num_participants"],
                 null);
+            crawl.setDesc(snapshot.value["pubcrawl_desc"]);
+
+            Map<dynamic, dynamic> map = snapshot.value["pubcrawl_ratings"];
+            count = snapshot.value["pubcrawl_ratings"].length;
+
+            map.forEach((key, value) {
+              total += value["rating"];
+            });
+
+            print("count: " + count.toString() + ", total: " + total.toString());
+            _rating = total / count ;
+            print(_rating);
+            crawl.setRating(_rating);
 
             snapshot.value["bars"].forEach((value, key){
               barsAtCrawl.add((key));

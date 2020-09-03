@@ -1,3 +1,4 @@
+import 'package:newpubcrawler/Pages/findCrawlPage.dart';
 import 'package:newpubcrawler/pubcrawl.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:newpubcrawler/Bar.dart';
@@ -49,11 +50,19 @@ class User{
         .child("pubcrawls/${crawl.getId()}")
         .set({
     "pubcrawl_name": crawl.getName(),
+    "pubcrawl_desc": crawl.getDesc(),
     "pubcrawl_startTime": crawl.getStartTime().toString(),
     "pubcrawl_author": crawl.getAuthor(),
     "pubcrawl_num_participants": crawl.getNumberOfParticipants(),
     "is_public": true,
     });
+    _database
+      .reference()
+      .child("pubcrawls/${crawl.getId()}/pubcrawl_ratings")
+      .push()
+      .set({
+          "rating": crawl.getRating(),
+        });
 
     crawl.getBars().asMap().forEach((index, bar) {
       print(bar.getName());

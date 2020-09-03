@@ -56,9 +56,11 @@ class _FindCrawlPageState extends State<FindCrawlPage> {
     parseJson();
     stateManager = getIt.get<StateManager>();
   }
-  void _getCurrentLocation() async{
-    final position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-    // print(position);
+  Future _getCurrentLocation() async{
+    print("lol");
+    var position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+
+
     _currentLat = position.latitude;
     _currentLong = position.longitude;
 
@@ -264,7 +266,11 @@ class _FindCrawlPageState extends State<FindCrawlPage> {
                   Text("Created by: " + crawl.getAuthor()),
                   SizedBox(height:30),
                   Text("Created at: " + crawl.getStartTime().toString()),
-                  SizedBox(height: 50),
+                  SizedBox(height: 10),
+                  Text(crawl.getDesc()),
+                  SizedBox(height: 10),
+                  Text("Rating: " + crawl.getRating().toString()),
+                  SizedBox(height: 10),
                   Text("Bars visited: "),
                   SizedBox(height: 10),
                   ListView.builder(
@@ -294,17 +300,19 @@ class _FindCrawlPageState extends State<FindCrawlPage> {
                   FlatButton(
                     color:  getColorFromCrawlId(crawl.getId(), false),
                     child: Text("Follow this crawl"),
-                    onPressed: () {
+                    onPressed:  () async{
+
                       setState(() {
                         _polyline.clear();
                         _barMarker.clear();
                       });
+                      await _getCurrentLocation();
                       Navigator.of(context).pop();
                       print("follow this crawl");
-                      createRoute(crawl.getStartBar());
-                      _getCurrentLocation();
+
                       createRouteForCrawl(crawl, true);
                       placeMarkersForBars(crawl.getBars());
+                      createRoute(crawl.getStartBar());
 
 
                     },

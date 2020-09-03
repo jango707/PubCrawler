@@ -1,4 +1,4 @@
-#Fri Aug 28 23:37:26 CEST 2020
+#Mon Aug 31 21:35:57 CEST 2020
 base.0=C\:\\Users\\jangb\\Documents\\projects\\New_PubCrawler\\PubCrawler\\new_pub_crawler\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex
